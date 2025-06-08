@@ -8,12 +8,15 @@ CREATE TABLE IF NOT EXISTS task (
 
 -- 创建用户任务关联表（如果不存在）
 CREATE TABLE IF NOT EXISTS userTask (
-                                        id INT AUTO_INCREMENT PRIMARY KEY,
-                                        studentId INT NOT NULL COMMENT '学号',
-                                        userName VARCHAR(10) NOT NULL COMMENT '姓名',
-    taskId INT NOT NULL COMMENT '任务id',
-    taskName VARCHAR(30) NOT NULL COMMENT '任务名称',
-    beginTime DATE NOT NULL COMMENT '开始时间',
-    endTime DATE NOT NULL COMMENT '结束时间',
-    status INT NOT NULL COMMENT '状态（0：未提交/1：已提交）'
+                                        id         int auto_increment
+                                            primary key,
+                                        studentId  int         not null comment '学号',
+                                        userName   varchar(10) not null comment '姓名',
+                                        taskId     int         not null comment '任务id',
+                                        taskName   varchar(30) not null comment '任务名称',
+                                        beginTime  date        not null comment '开始时间',
+                                        endTime    date        not null comment '结束时间',
+                                        status     int         not null comment '状态（0：未提交/1：已提交）',
+                                        commitTime date        null comment '提交时间',
+                                        file       varchar(30) null comment '提交文件的地址'
     );
