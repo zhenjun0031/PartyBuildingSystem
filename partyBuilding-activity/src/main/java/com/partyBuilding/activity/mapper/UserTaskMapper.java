@@ -1,4 +1,4 @@
-package com.partyBuilding.web.party.mapper;
+package com.partyBuilding.activity.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

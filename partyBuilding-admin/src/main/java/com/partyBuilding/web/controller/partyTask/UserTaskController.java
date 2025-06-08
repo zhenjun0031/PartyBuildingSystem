@@ -1,6 +1,5 @@
-package com.partyBuilding.web.party.controller;
+package com.partyBuilding.web.controller.partyTask;
 
-import com.partyBuilding.web.party.service.IUserTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,8 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user/task")
 public class UserTaskController {
-    @Autowired
-    private IUserTaskService userTaskService;
 
     //查询用户未完成数
 

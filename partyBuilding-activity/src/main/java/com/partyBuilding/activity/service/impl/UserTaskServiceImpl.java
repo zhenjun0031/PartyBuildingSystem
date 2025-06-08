@@ -1,7 +1,7 @@
-package com.partyBuilding.web.party.service.impl;
+package com.partyBuilding.activity.service.impl;
 
-import com.partyBuilding.web.party.mapper.UserTaskMapper;
-import com.partyBuilding.web.party.service.IUserTaskService;
+import com.partyBuilding.activity.mapper.UserTaskMapper;
+import com.partyBuilding.activity.service.IUserTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

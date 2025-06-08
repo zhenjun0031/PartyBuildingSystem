@@ -1,4 +1,4 @@
-package com.partyBuilding.web.party.service;
+package com.partyBuilding.activity.service;
 
 public interface IStatisticsService {
     //用户月份统计
