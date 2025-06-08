@@ -218,6 +218,13 @@
                 <version>${partyBuilding.version}</version>
             </dependency>
 
+            <!-- 对新增子模块进行版本锁定 -->
+            <dependency>
+                <groupId>com.partyBuilding</groupId>
+                <artifactId>partyBuilding-activity</artifactId>
+                <version>${partyBuilding.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -228,6 +235,7 @@
         <module>partyBuilding-quartz</module>
         <module>partyBuilding-generator</module>
         <module>partyBuilding-common</module>
+        <module>partyBuilding-activity</module>
     </modules>
     <packaging>pom</packaging>
 
