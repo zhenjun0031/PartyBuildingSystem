@@ -1,7 +1,10 @@
 package com.partyBuilding.activity.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.partyBuilding.common.annotation.Excel;
 import com.partyBuilding.common.core.domain.BaseEntity;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -43,12 +46,16 @@ public class UserTask extends BaseEntity {
     /**
      * 任务开始时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "开始时间")
     private Date beginTime;
 
     /**
      * 任务结束时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "结束时间")
     private Date endTime;
 
@@ -61,6 +68,8 @@ public class UserTask extends BaseEntity {
     /**
      * 提交时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "提交时间")
     private Date commitTime;
 
