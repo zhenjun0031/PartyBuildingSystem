@@ -18,5 +18,5 @@ CREATE TABLE IF NOT EXISTS userTask (
                                         endTime    datetime        not null comment '结束时间',
                                         status     int         not null comment '状态（0：未提交/1：已提交）',
                                         commitTime datetime        null comment '提交时间',
-                                        file       varchar(30) null comment '提交文件的地址'
+                                        file       varchar(100) null comment '提交文件的地址'
     );

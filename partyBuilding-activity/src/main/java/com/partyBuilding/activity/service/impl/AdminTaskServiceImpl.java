@@ -17,6 +17,7 @@ public class AdminTaskServiceImpl implements IAdminTaskService {
     @Autowired
     private AdminTaskMapper adminTaskMapper;
 
+    //查询全部进度
     @Override
     public PageVo selectProgress(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
@@ -26,6 +27,7 @@ public class AdminTaskServiceImpl implements IAdminTaskService {
         return result;
     }
 
+    //查询具体进度
     @Override
     public PageVo detail(Integer pageNum, Integer pageSize , Long studentId) {
         PageHelper.startPage(pageNum, pageSize);
