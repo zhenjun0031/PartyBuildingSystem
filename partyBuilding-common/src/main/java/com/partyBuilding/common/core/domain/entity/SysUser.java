@@ -29,6 +29,10 @@ public class SysUser extends BaseEntity
     @Excel(name = "部门编号", type = Type.IMPORT)
     private Long deptId;
 
+    /** 学生id（学号） */
+    @Excel(name = "学号")
+    private String studentId;
+
     /** 用户账号 */
     @Excel(name = "登录名称")
     private String userName;
@@ -310,11 +314,20 @@ public class SysUser extends BaseEntity
         this.roleId = roleId;
     }
 
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("userId", getUserId())
             .append("deptId", getDeptId())
+            .append("studentId", getStudentId())
             .append("userName", getUserName())
             .append("nickName", getNickName())
             .append("email", getEmail())

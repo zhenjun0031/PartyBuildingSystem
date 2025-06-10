@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS task (
 CREATE TABLE IF NOT EXISTS userTask (
                                         id         int auto_increment
                                             primary key,
-                                        studentId  BIGINT UNSIGNED	    not null unique comment '学号',
+                                        studentId  varchar(20)	    not null unique comment '学号',
                                         userName   varchar(10) not null comment '姓名',
                                         taskId     int         not null comment '任务id',
                                         taskName   varchar(30) not null comment '任务名称',
