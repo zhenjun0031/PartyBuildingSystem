@@ -7,14 +7,14 @@
     <update id="update">
         UPDATE usertask
         <set>
-            <if test="studentId != null">student_id = #{studentId},</if>
+            <if test="studentId != null">studentId = #{studentId},</if>
             <if test="userName != null and userName != ''">userName = #{userName},</if>
-            <if test="taskId != 0">task_id = #{taskId},</if>
-            <if test="taskName != null and taskName != ''">task_name = #{taskName},</if>
-            <if test="beginTime != null">begin_time = #{beginTime},</if>
-            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="taskId != 0">taskId = #{taskId},</if>
+            <if test="taskName != null and taskName != ''">taskName = #{taskName},</if>
+            <if test="beginTime != null">beginTime = #{beginTime},</if>
+            <if test="endTime != null">endTime = #{endTime},</if>
             <if test="status != null">status = #{status},</if>
-            <if test="commitTime != null">commit_time = #{commitTime},</if>
+            <if test="commitTime != null">commitTime = #{commitTime},</if>
             <if test="file != null and file != ''">file = #{file},</if>
         </set>
         WHERE id = #{id}

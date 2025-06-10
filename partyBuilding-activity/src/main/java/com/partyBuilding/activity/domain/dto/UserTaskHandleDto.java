@@ -15,7 +15,7 @@ public class UserTaskHandleDto {
     private Long id;
 
     //用户学号
-    private String studentId;
+    private Long studentId;
 
     //用户姓名
     @JsonProperty("studentName")
