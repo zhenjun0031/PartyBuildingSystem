@@ -1,7 +1,9 @@
 package com.partyBuilding.activity.service.impl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.partyBuilding.activity.domain.UserTask;
+import com.partyBuilding.activity.domain.vo.PageVo;
 import com.partyBuilding.activity.mapper.AdminTaskMapper;
 import com.partyBuilding.activity.service.IAdminTaskService;
 import com.partyBuilding.common.core.page.PageDomain;
@@ -16,19 +18,21 @@ public class AdminTaskServiceImpl implements IAdminTaskService {
     private AdminTaskMapper adminTaskMapper;
 
     @Override
-    public PageDomain selectProgress(Integer pageNum, Integer pageSize) {
+    public PageVo selectProgress(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<UserTask> taskList = adminTaskMapper.selectProgress();
-        PageDomain p = (PageDomain) taskList;
-        return p;
+        Page<UserTask> p = (Page<UserTask>) taskList;
+        PageVo result = new PageVo(p.getTotal(), p.getResult());
+        return result;
     }
 
     @Override
-    public PageDomain detail(Integer pageNum, Integer pageSize , Long studentId) {
+    public PageVo detail(Integer pageNum, Integer pageSize , Long studentId) {
         PageHelper.startPage(pageNum, pageSize);
         List<UserTask> taskList = adminTaskMapper.detail(studentId);
-        PageDomain p = (PageDomain) taskList;
-        return p;
+        Page<UserTask> p = (Page<UserTask>) taskList;
+        PageVo result = new PageVo(p.getTotal(), p.getResult());
+        return result;
     }
 
 }

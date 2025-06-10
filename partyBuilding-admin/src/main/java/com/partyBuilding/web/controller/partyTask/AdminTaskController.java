@@ -1,6 +1,7 @@
 package com.partyBuilding.web.controller.partyTask;
 
 import com.partyBuilding.activity.domain.UserTask;
+import com.partyBuilding.activity.domain.vo.PageVo;
 import com.partyBuilding.activity.service.IAdminTaskService;
 import com.partyBuilding.common.core.domain.AjaxResult;
 import com.partyBuilding.common.core.domain.R;
@@ -31,14 +32,14 @@ public class AdminTaskController {
     @GetMapping("/selectprogress")
     public AjaxResult selectProgress(@RequestParam(defaultValue = "1") Integer pageNum,
                                       @RequestParam(defaultValue = "10") Integer pageSize){
-        PageDomain pageDomain = adminTaskService.selectProgress(pageNum,  pageSize);
-        return AjaxResult.success(pageDomain);
+        PageVo pageVo = adminTaskService.selectProgress(pageNum,  pageSize);
+        return AjaxResult.success(pageVo);
     }
     //查看具体进度
-    @GetMapping("/detail/{studentId}")
+    @GetMapping("/selectprogress/{studentId}")
     public AjaxResult detail(@RequestParam(defaultValue = "1") Integer pageNum,
                                 @RequestParam(defaultValue = "10") Integer pageSize,
                                 @PathVariable Long studentId){
-        PageDomain pageDomain = adminTaskService.detail(pageNum,  pageSize,  studentId );
-        return AjaxResult.success(pageDomain);    }
+        PageVo pageVo = adminTaskService.detail(pageNum,  pageSize,  studentId );
+        return AjaxResult.success(pageVo);    }
 }
