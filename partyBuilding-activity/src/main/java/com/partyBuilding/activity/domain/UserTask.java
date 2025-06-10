@@ -1,10 +1,11 @@
 package com.partyBuilding.activity.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.partyBuilding.common.annotation.Excel;
 import com.partyBuilding.common.core.domain.BaseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 普通用户的任务管理表
@@ -43,14 +44,18 @@ public class UserTask extends BaseEntity {
     /**
      * 任务开始时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "开始时间")
-    private Date beginTime;
+    private LocalDateTime beginTime;
 
     /**
      * 任务结束时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "结束时间")
-    private Date endTime;
+    private LocalDateTime endTime;
 
     /**
      * 任务状态
@@ -61,8 +66,10 @@ public class UserTask extends BaseEntity {
     /**
      * 提交时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "提交时间")
-    private Date commitTime;
+    private LocalDateTime commitTime;
 
 
     /**
@@ -111,19 +118,19 @@ public class UserTask extends BaseEntity {
         this.taskName = taskName;
     }
 
-    public Date getBeginTime() {
+    public LocalDateTime getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(LocalDateTime beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -135,11 +142,11 @@ public class UserTask extends BaseEntity {
         this.status = status;
     }
 
-    public Date getCommitTime() {
+    public LocalDateTime getCommitTime() {
         return commitTime;
     }
 
-    public void setCommitTime(Date commitTime) {
+    public void setCommitTime(LocalDateTime commitTime) {
         this.commitTime = commitTime;
     }
 

@@ -3,6 +3,7 @@ package com.partyBuilding.activity.domain;
 import com.partyBuilding.common.annotation.Excel;
 import com.partyBuilding.common.core.domain.BaseEntity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -21,11 +22,11 @@ public class Task extends BaseEntity {
 
     /** 开始时间 */
     @Excel(name="开始时间")
-    private Date beginTime;
+    private LocalDateTime beginTime;
 
     /** 结束时间 */
     @Excel(name="结束时间")
-    private Date endTime;
+    private LocalDateTime endTime;
 
 
     public Long getId() {
@@ -44,19 +45,19 @@ public class Task extends BaseEntity {
         this.taskName = taskName;
     }
 
-    public Date getBeginTime() {
+    public LocalDateTime getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(LocalDateTime beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
