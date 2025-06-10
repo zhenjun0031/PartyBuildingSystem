@@ -4,4 +4,13 @@
 <mapper namespace="com.partyBuilding.activity.mapper.AdminTaskMapper">
 
 
+    <select id="selectProgress" resultType="com.partyBuilding.activity.domain.UserTask">
+        select id, studentId, name from usertask
+    </select>
+    <select id="detail" resultType="com.partyBuilding.activity.domain.UserTask">
+        select t.* , u.status
+        from task t join usertask u
+        on t.id=u.taskId
+        where u.studentId=#{studentId}
+    </select>
 </mapper>
