@@ -1,15 +1,16 @@
 package com.partyBuilding.web.controller.partyTask;
 
 import com.partyBuilding.activity.domain.UserTask;
+import com.partyBuilding.activity.domain.dto.UserTaskHandleDto;
 import com.partyBuilding.activity.domain.dto.UserTaskPageQueryDto;
 import com.partyBuilding.activity.service.impl.UserTaskServiceImpl;
+import com.partyBuilding.common.annotation.Log;
 import com.partyBuilding.common.constant.HttpStatus;
 import com.partyBuilding.common.core.domain.AjaxResult;
+import com.partyBuilding.common.enums.BusinessType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,6 +40,34 @@ public class UserTaskController {
     }
 
     //办理任务
+
+    /**
+     * 用户办理任务
+     * @param userTaskHandleDto
+     * @return
+     */
+    @PostMapping("/handle")
+    @Log(title = "用户办理任务", businessType = BusinessType.UPDATE)
+    public AjaxResult handleTask(@RequestBody UserTaskHandleDto userTaskHandleDto) {
+        userTaskService.handle(userTaskHandleDto);
+        return AjaxResult.success();
+    }
+
+    //用户上传文件
+
+    /**
+     * 用户上传文件
+     * @param file
+     * @return
+     */
+    @PostMapping("/file/upload/{id}")
+    @Log(title = "用户上传文件", businessType = BusinessType.UPDATE)
+    public AjaxResult userUploadFile( MultipartFile file ,
+                                     @PathVariable("id") Long id){
+        Object data=userTaskService.userFileUpload(file,id);
+        return AjaxResult.success(data);
+    }
+
 
     //修改已提交的任务
 

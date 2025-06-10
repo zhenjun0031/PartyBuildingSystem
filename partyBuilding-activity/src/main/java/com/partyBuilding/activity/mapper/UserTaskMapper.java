@@ -17,4 +17,18 @@ public interface UserTaskMapper {
      */
     @Select("select id,taskName,usertask.beginTime,usertask.endTime,commitTime,status from usertask where studentId=#{studentId}")
     Page<UserTask> list(String StudentId);
+
+    /**
+     * 更新用户任务
+     * @param userTask
+     * @return
+     */
+    int update(UserTask userTask);
+
+    /**
+     * 根据id查询用户任务
+     * @param id
+     * @return
+     */
+    UserTask  getById(Long id);
 }

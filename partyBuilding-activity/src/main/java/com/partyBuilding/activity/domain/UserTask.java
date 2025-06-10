@@ -27,7 +27,7 @@ public class UserTask extends BaseEntity {
      * 姓名
      */
     @Excel(name = "姓名")
-    private String name;
+    private String userName;
 
     /**
      * 任务id
@@ -95,11 +95,11 @@ public class UserTask extends BaseEntity {
     }
 
     public String getName() {
-        return name;
+        return userName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.userName = name;
     }
 
     public int getTaskId() {
@@ -163,7 +163,7 @@ public class UserTask extends BaseEntity {
         return "UserTask{" +
                 "id=" + id +
                 ", studentId=" + studentId +
-                ", name='" + name + '\'' +
+                ", name='" + userName + '\'' +
                 ", taskId=" + taskId +
                 ", taskName='" + taskName + '\'' +
                 ", beginTime=" + beginTime +
