@@ -25,6 +25,13 @@ public class UserTaskConstants {
                     "bmp", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "pdf", "txt",
                     "zip", "rar", "7z");
 
+    //项目路径
+    public static final String PROJECT_PATH = System.getProperty("user.dir");
     //文件上传路径
-    public static final String UPLOAD_FILE_PATH = "partyBuilding-activity/src/main/resources/static";
+    public static final String UPLOAD_FILE_PATH = PROJECT_PATH+"/"+"partyBuilding-activity/src/main/resources/static";
+    //临时文件上传路径
+    public static final String UPLOAD_FILE_TEMPORARY_PATH = PROJECT_PATH+"/"+ "temporary";
+
+    //临时文件最大可保存时间(小时)
+    public static final Integer UPLOAD_FILE_TEMPORARY_TIME = 24;
 }

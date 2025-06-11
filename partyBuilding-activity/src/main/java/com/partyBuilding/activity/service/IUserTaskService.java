@@ -1,5 +1,6 @@
 package com.partyBuilding.activity.service;
 
+import com.partyBuilding.activity.domain.UserTask;
 import com.partyBuilding.activity.domain.dto.UserTaskHandleDto;
 import com.partyBuilding.activity.domain.dto.UserTaskPageQueryDto;
 import com.partyBuilding.activity.domain.vo.PageVo;
@@ -26,4 +27,18 @@ public interface IUserTaskService {
      * @param file
      */
     String userFileUpload(MultipartFile file,Long id);
+
+    /**
+     * 根据id获取用户任务
+     * @param id
+     * @return
+     */
+    UserTask getUserTaskById(Long id);
+
+
+    /**
+     * 修改用户任务
+     * @param userTaskHandleDto
+     */
+    void update(UserTaskHandleDto userTaskHandleDto);
 }

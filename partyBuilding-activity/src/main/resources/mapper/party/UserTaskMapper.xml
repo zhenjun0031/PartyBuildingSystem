@@ -9,7 +9,7 @@
         <set>
             <if test="studentId != null">studentId = #{studentId},</if>
             <if test="userName != null and userName != ''">userName = #{userName},</if>
-            <if test="taskId != 0">taskId = #{taskId},</if>
+            <if test="taskId != null">taskId = #{taskId},</if>
             <if test="taskName != null and taskName != ''">taskName = #{taskName},</if>
             <if test="beginTime != null">beginTime = #{beginTime},</if>
             <if test="endTime != null">endTime = #{endTime},</if>
@@ -21,6 +21,6 @@
     </update>
 
     <select id="getById" resultType="com.partyBuilding.activity.domain.UserTask">
-        SELECT userName,studentId,taskName,taskId,file FROM usertask WHERE id = #{id}
+        SELECT userName,studentId,taskName,taskId,status,file FROM usertask WHERE id = #{id}
     </select>
 </mapper>

@@ -85,4 +85,29 @@ public class UserTaskController {
 
     //修改已提交的任务
 
+    /**
+     * 用户修改已提交任务
+     * @param userTaskHandleDto
+     * @return
+     */
+    @Log(title = "用户修改任务", businessType = BusinessType.UPDATE)
+    @PutMapping("/update")
+    public AjaxResult update(@RequestBody UserTaskHandleDto userTaskHandleDto) {
+        userTaskService.update(userTaskHandleDto);
+        return AjaxResult.success();
+    }
+
+    //用户修改以及提交任务的数据回显（根据任务id查询数据）
+
+    /**
+     * 用户修改以及提交任务的数据回显（根据任务id查询数据）
+     * @param id
+     * @return
+     */
+    @GetMapping("/list/{id}")
+    public AjaxResult getUserTaskById(@PathVariable("id") Long id) {
+        UserTask userTask = userTaskService.getUserTaskById(id);
+        return AjaxResult.success(userTask);
+    }
+
 }

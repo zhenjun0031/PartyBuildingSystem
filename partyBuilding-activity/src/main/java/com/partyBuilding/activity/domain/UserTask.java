@@ -41,7 +41,7 @@ public class UserTask extends BaseEntity {
      * 任务id
      */
     @Excel(name = "任务id")
-    private int taskId;
+    private Integer taskId;
 
     /**
      * 任务名称
@@ -69,7 +69,7 @@ public class UserTask extends BaseEntity {
      * 任务状态
      */
     @Excel(name = "任务状态")
-    private int status;
+    private Integer status;
 
     /**
      * 提交时间
