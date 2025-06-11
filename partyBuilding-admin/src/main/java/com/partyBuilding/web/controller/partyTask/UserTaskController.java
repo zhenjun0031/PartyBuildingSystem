@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user/task")
@@ -32,12 +33,13 @@ public class UserTaskController {
 
 
     //统计月份的柱状图（用户）
+    //统计月份的柱状图（用户）
     @GetMapping("/monthlyCompletion")
     public AjaxResult monthlyCompletion() {
-        return new AjaxResult(HttpStatus.SUCCESS,
-                "success",
-                statisticsService.getMonthlyTaskOrgUserCompletionNum(SecurityUtils.getLoginUser().getUser().getStudentId()));
-                //SecurityUtils.getLoginUser().getUser().getStudentId();获取当前用户的学号
+        String studentId = SecurityUtils.getLoginUser().getUser().getStudentId();
+        Map<String, Object> stats = statisticsService.getMonthlyTaskOrgUserCompletionNum(studentId);
+        return AjaxResult.success(stats);
+        //SecurityUtils.getLoginUser().getUser().getStudentId();获取当前用户的学号
     }
 
     //查询任务列表

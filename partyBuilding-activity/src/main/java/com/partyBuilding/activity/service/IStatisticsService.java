@@ -11,7 +11,7 @@ public interface IStatisticsService {
      * 获取当前用户每月的任务完成数
      * @return 每月任务完成数列表
      */
-    List<Map<String, Object>> getMonthlyTaskOrgUserCompletionNum(String studentId);
+    Map<String,Object> getMonthlyTaskOrgUserCompletionNum(String studentId);
 
     //管理员月份统计
 
