@@ -3,11 +3,13 @@ package com.partyBuilding.web.controller.partyTask;
 import com.partyBuilding.activity.domain.UserTask;
 import com.partyBuilding.activity.domain.dto.UserTaskHandleDto;
 import com.partyBuilding.activity.domain.dto.UserTaskPageQueryDto;
+import com.partyBuilding.activity.service.IStatisticsService;
 import com.partyBuilding.activity.service.impl.UserTaskServiceImpl;
 import com.partyBuilding.common.annotation.Log;
 import com.partyBuilding.common.constant.HttpStatus;
 import com.partyBuilding.common.core.domain.AjaxResult;
 import com.partyBuilding.common.enums.BusinessType;
+import com.partyBuilding.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,9 +24,21 @@ public class UserTaskController {
     @Autowired
     private UserTaskServiceImpl userTaskService;
 
+    @Autowired
+    private IStatisticsService statisticsService;
+
     //查询用户未完成数
 
+
+
     //统计月份的柱状图（用户）
+    @GetMapping("/monthlyCompletion")
+    public AjaxResult monthlyCompletion() {
+        return new AjaxResult(HttpStatus.SUCCESS,
+                "success",
+                statisticsService.getMonthlyTaskOrgUserCompletionNum(SecurityUtils.getLoginUser().getUser().getStudentId()));
+                //SecurityUtils.getLoginUser().getUser().getStudentId();获取当前用户的学号
+    }
 
     //查询任务列表
 

@@ -4,4 +4,21 @@
 <mapper namespace="com.partyBuilding.activity.mapper.StatisticsMapper">
 
 
+
+    <select id="selectMonthlyTaskCompletion" resultType="java.util.Map">
+        SELECT
+            DATE_FORMAT(commit_time, '%Y-%m') AS month,
+            COUNT(*) AS completedCount
+        FROM
+            userTask
+        WHERE
+            studentId = #{studentId}
+          AND status = 1
+          AND commitTime IS NOT NULL
+        GROUP BY
+            DATE_FORMAT(commitTime, '%Y-%m')
+        ORDER BY
+            month
+    </select>
+
 </mapper>
