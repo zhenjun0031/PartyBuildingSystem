@@ -1,8 +1,6 @@
 package com.partyBuilding.activity.service;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Map;
 
 public interface IStatisticsService {
@@ -14,5 +12,5 @@ public interface IStatisticsService {
     Map<String,Object> getMonthlyTaskOrgUserCompletionNum(String studentId);
 
     //管理员月份统计
-
+    Map<String,Object> getMonthCompleted(LocalDate begin, LocalDate end);
 }

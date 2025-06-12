@@ -2,10 +2,12 @@ package com.partyBuilding.activity.service.impl;
 
 import com.partyBuilding.activity.mapper.StatisticsMapper;
 import com.partyBuilding.activity.service.IStatisticsService;
-import com.partyBuilding.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,4 +44,25 @@ public class StatisticsServiceImpl implements IStatisticsService {
 
         return result;
     }
+
+    @Override
+    public Map<String,Object> getMonthCompleted(LocalDate begin, LocalDate end) {
+        LocalDateTime beginTime = LocalDateTime.of(begin, LocalTime.MIN);
+        LocalDateTime endTime = LocalDateTime.of(end, LocalTime.MIN);
+        List<Map<String, Object>> resultList =statisticsMapper.MonthCompleted(beginTime, endTime);
+        List<String> monthList = new ArrayList<>();
+        List<Integer> completedList = new ArrayList<>();
+        List<Integer> uncompletedList = new ArrayList<>();
+        for (Map<String, Object> row : resultList) {
+            monthList.add((String) row.get("month"));
+            completedList.add((Integer) row.get("submittedCount"));
+            uncompletedList.add((Integer) row.get("unSubmittedCount"));
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("month",monthList);
+        map.put("submittedCount",completedList);
+        map.put("unSubmittedCount",uncompletedList);
+        return  map;
+    }
+
 }

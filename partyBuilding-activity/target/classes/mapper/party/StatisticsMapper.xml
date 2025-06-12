@@ -21,7 +21,7 @@
             month
     </select>
 
-    <select id="MonthCompleted" resultType="java.util.Map">
+    <select id="MonthSubmission" resultType="java.util.Map">
         WITH RECURSIVE months AS (
             SELECT DATE_FORMAT(#{startTime}, '%Y-%m') AS month
             UNION ALL
