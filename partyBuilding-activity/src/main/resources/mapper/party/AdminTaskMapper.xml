@@ -13,4 +13,26 @@
         on t.id=u.taskId
         where u.studentId=#{studentId}
     </select>
+
+    <select id="selectTasks" resultType="task">
+        select id,taskName,beginTime,endTime from task
+    </select>
+
+    <insert id="insertTask" useGeneratedKeys="true" keyProperty="id">
+        insert into task
+            (taskName,beginTime,endTime)
+        values
+            (#{taskName},#{beginTime},#{endTime})
+    </insert>
+
+    <delete id="deleteTask">
+        delete from task where id=#{id}
+    </delete>
+
+    <delete id="deleteTasks" >
+        delete from task where id in
+        <foreach item="item" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>
