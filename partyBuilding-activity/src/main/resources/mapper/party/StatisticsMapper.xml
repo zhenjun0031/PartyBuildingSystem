@@ -7,7 +7,7 @@
 
     <select id="selectMonthlyTaskCompletion" resultType="java.util.Map">
         SELECT
-            DATE_FORMAT(commit_time, '%Y-%m') AS month,
+            DATE_FORMAT(commitTime, '%Y-%m') AS month,
             COUNT(*) AS completedCount
         FROM
             userTask

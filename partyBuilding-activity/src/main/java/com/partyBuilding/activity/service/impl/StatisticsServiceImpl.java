@@ -2,6 +2,7 @@ package com.partyBuilding.activity.service.impl;
 
 import com.partyBuilding.activity.mapper.StatisticsMapper;
 import com.partyBuilding.activity.service.IStatisticsService;
+import com.partyBuilding.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,27 +21,41 @@ public class StatisticsServiceImpl implements IStatisticsService {
 
     /**
      * 获取当前用户每月的任务完成情况
-     * @return
+     * @return {月份数组->任务完成数数组}
      */
     @Override
     public Map<String,Object> getMonthlyTaskOrgUserCompletionNum(String studentId) {
 
-        List<Map<String,Object>> list = statisticsMapper.selectMonthlyTaskCompletion(studentId);
+        // 1. 获取数据库查询结果（当没有任何数据符合条件时，dbResults将是一个空列表[]）
+        List<Map<String, Object>> dbResults = statisticsMapper.selectMonthlyTaskCompletion(studentId);
 
-        List<String>  month = new ArrayList<>();
-        List<Integer>  completedCount = new ArrayList<>();
+        // 2. 生成最近n个月的月份列表（包含当前月）
+        List<String> allMonths = DateUtils.generateRecentMonths(6);
 
-        for (Map<String, Object> map : list) {
-            month.add(map.get("month").toString());
-            int count = ((Number) map.get("completedCount")).intValue();
-            completedCount.add(count);
+        // 3. 将数据库结果转为月份->数量的Map（当dbResults是空列表时不执行循环，monthContMap是一个空Map{}）
+        Map<String,Integer> monthContMap=new  HashMap<>();
+        for(Map<String, Object> item:dbResults){
+            String month=(String) item.get("month");
+            Integer  count=(Integer) item.get("count");
+            monthContMap.put(month,count);
+        }
+
+        // 4. 填充完整月份数据（缺失的月份补0）
+        List<Integer> completedCount = new ArrayList<>();
+        for(String month:allMonths){
+            Integer tempcount=monthContMap.get(month);//当month不存在于monthContMap时返回null（map默认行为）
+            if(tempcount==null){
+                completedCount.add(Integer.valueOf(0));//当没有任务完成时，所有月份对应任务完成数填充0
+            }else{
+                completedCount.add(tempcount);
+            }
         }
 
 
-        Map<String,Object> result=new HashMap<>();
-        result.put("month",month);
-        result.put("completedCount",completedCount);
-
+        // 5. 构建返回结果
+        Map<String, Object> result = new HashMap<>();
+        result.put("month", allMonths);
+        result.put("completedCount", completedCount);
 
         return result;
     }
