@@ -31,12 +31,4 @@ public interface UserTaskMapper {
      * @return
      */
     UserTask  getById(Long id);
-
-    /**
-     * 查询用户未完成数量
-     * @param studentId
-     * @return
-     */
-    @Select("SELECT COUNT(*) FROM userTask WHERE studentId = #{studentId} AND status=0")
-    Integer countUnfinishedByStudentId(String studentId);
 }

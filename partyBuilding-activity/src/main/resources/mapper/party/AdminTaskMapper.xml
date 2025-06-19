@@ -5,7 +5,7 @@
 
 
     <select id="selectProgress" resultType="com.partyBuilding.activity.domain.UserTask">
-        select id, studentId, name from usertask
+        select id, studentId, userName from usertask
     </select>
     <select id="detail" resultType="com.partyBuilding.activity.domain.UserTask">
         select t.* , u.status
@@ -18,7 +18,7 @@
         select id,taskName,beginTime,endTime from task
     </select>
 
-    <insert id="insertTask" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertTask" parameterType="task" useGeneratedKeys="true" keyProperty="id">
         insert into task
             (taskName,beginTime,endTime)
         values
@@ -31,8 +31,8 @@
 
     <delete id="deleteTasks" >
         delete from task where id in
-        <foreach item="item" collection="list" open="(" separator="," close=")">
-            #{item}
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
         </foreach>
     </delete>
 </mapper>
