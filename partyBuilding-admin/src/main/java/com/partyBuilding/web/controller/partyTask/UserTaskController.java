@@ -8,6 +8,8 @@ import com.partyBuilding.activity.service.impl.UserTaskServiceImpl;
 import com.partyBuilding.common.annotation.Log;
 import com.partyBuilding.common.constant.HttpStatus;
 import com.partyBuilding.common.core.domain.AjaxResult;
+import com.partyBuilding.common.core.domain.entity.SysUser;
+import com.partyBuilding.common.core.domain.model.LoginUser;
 import com.partyBuilding.common.enums.BusinessType;
 import com.partyBuilding.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,8 @@ public class UserTaskController {
     //查询用户未完成数
     @GetMapping("/getUserUnfinished")
     public AjaxResult getUserUnfinished(){
-        String studentId = SecurityUtils.getLoginUser().getUser().getStudentId();
+        //获取当前用户的学号
+        String studentId = userTaskService.getStudentId(SecurityUtils.getLoginUser().getUser().getUserId());
         Integer num = userTaskService.getUserUnfinished(studentId);
         return AjaxResult.success(num);
     }

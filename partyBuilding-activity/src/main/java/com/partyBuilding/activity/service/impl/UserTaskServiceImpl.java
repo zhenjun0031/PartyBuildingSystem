@@ -205,4 +205,9 @@ public class UserTaskServiceImpl implements IUserTaskService {
             System.out.println("删除失败");
         }
     }
+
+    @Override
+    public String getStudentId(Long userId) {
+        return userTaskMapper.getStudentId(userId);
+    }
 }

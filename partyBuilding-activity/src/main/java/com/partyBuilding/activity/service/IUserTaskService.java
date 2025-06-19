@@ -46,4 +46,12 @@ public interface IUserTaskService {
      * @param userTaskHandleDto
      */
     void update(UserTaskHandleDto userTaskHandleDto);
+
+    /**
+     * 获得用户的学号
+     * @param userId
+     * @return
+     */
+    String getStudentId(Long userId);
+
 }

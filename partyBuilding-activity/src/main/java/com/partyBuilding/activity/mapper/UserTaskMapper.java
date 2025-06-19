@@ -39,4 +39,7 @@ public interface UserTaskMapper {
      */
     @Select("SELECT COUNT(*) FROM userTask WHERE studentId = #{studentId} AND status=0")
     Integer countUnfinishedByStudentId(String studentId);
+
+    @Select("SELECT sys_user.student_id FROM sys_user WHERE sys_user.user_id = #{userId}")
+    String getStudentId(Long userId);
 }
