@@ -5,7 +5,7 @@
 
 
     <select id="selectProgress" resultType="com.partyBuilding.activity.domain.UserTask">
-        select id, studentId, name from usertask
+        select id, studentId, userName from usertask
     </select>
     <select id="detail" resultType="com.partyBuilding.activity.domain.UserTask">
         select t.* , u.status
