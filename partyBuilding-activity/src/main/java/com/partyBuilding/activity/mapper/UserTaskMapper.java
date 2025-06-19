@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Mapper
 public interface UserTaskMapper {
 
@@ -48,4 +50,23 @@ public interface UserTaskMapper {
      */
     @Select("SELECT sys_user.student_id FROM sys_user WHERE sys_user.user_id = #{userId}")
     String getStudentId(Long userId);
+
+    /**
+     * 查询学生学号信息
+     * @return
+     */
+    List<UserTask> getAllStudentIds();
+
+    /**
+     * 添加学生任务
+     * @return
+     */
+    int insertUserTask(List<UserTask> records);
+
+    /**
+     * 删除学生任务
+     * @param ids
+     * @return
+     */
+    int deleteUserTask(Long[] ids);
 }
