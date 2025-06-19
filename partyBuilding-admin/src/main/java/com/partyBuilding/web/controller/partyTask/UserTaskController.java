@@ -29,7 +29,12 @@ public class UserTaskController {
     private IStatisticsService statisticsService;
 
     //查询用户未完成数
-
+    @GetMapping("/getUserUnfinished")
+    public AjaxResult getUserUnfinished(){
+        String studentId = SecurityUtils.getLoginUser().getUser().getStudentId();
+        Integer num = userTaskService.getUserUnfinished(studentId);
+        return AjaxResult.success(num);
+    }
 
 
     //统计月份的柱状图（用户）

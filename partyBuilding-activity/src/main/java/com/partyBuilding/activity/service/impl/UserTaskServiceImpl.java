@@ -9,6 +9,7 @@ import com.partyBuilding.activity.domain.vo.PageVo;
 import com.partyBuilding.activity.mapper.UserTaskMapper;
 import com.partyBuilding.activity.service.IUserTaskService;
 import com.partyBuilding.common.constant.UserTaskConstants;
+import io.swagger.models.auth.In;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,14 @@ public class UserTaskServiceImpl implements IUserTaskService {
     @Autowired
     private UserTaskMapper userTaskMapper;
 
+
+    /**
+     * 查询用户未完成数
+     */
+    @Override
+    public Integer getUserUnfinished(String studentId){
+        return userTaskMapper.countUnfinishedByStudentId(studentId);
+    }
 
     /**
      * 分页查询用户任务

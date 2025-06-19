@@ -17,6 +17,11 @@ public interface IUserTaskService {
 
 
     /**
+     * 查询用户未完成数
+     */
+    Integer getUserUnfinished(String studentId);
+
+    /**
      * 用户办理任务
      * @param userTaskHandleDto
      */
