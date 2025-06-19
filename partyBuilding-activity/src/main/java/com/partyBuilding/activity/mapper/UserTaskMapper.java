@@ -1,10 +1,15 @@
 package com.partyBuilding.activity.mapper;
 
 import com.github.pagehelper.Page;
+import com.partyBuilding.activity.domain.Task;
 import com.partyBuilding.activity.domain.UserTask;
+import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Mapper
 public interface UserTaskMapper {
@@ -31,4 +36,23 @@ public interface UserTaskMapper {
      * @return
      */
     UserTask  getById(Long id);
+
+    /**
+     * 查询所有学生id
+     * @return
+     */
+    List<UserTask> getAllStudentIds();
+
+    /**
+     * 插入用户任务
+     * @return
+     */
+    int insertUserTask(List<UserTask> records);
+
+    /**
+     * 批量删除用户任务
+     * @param ids
+     * @return
+     */
+    int deleteUserTask(Long[] ids);
 }

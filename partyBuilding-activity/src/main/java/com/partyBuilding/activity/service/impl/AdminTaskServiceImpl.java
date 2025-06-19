@@ -7,17 +7,23 @@ import com.partyBuilding.activity.domain.UserTask;
 import com.partyBuilding.activity.domain.vo.PageResultVo;
 import com.partyBuilding.activity.domain.vo.PageVo;
 import com.partyBuilding.activity.mapper.AdminTaskMapper;
+import com.partyBuilding.activity.mapper.UserTaskMapper;
 import com.partyBuilding.activity.service.IAdminTaskService;
 import com.partyBuilding.common.core.page.PageDomain;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AdminTaskServiceImpl implements IAdminTaskService {
     @Autowired
     private AdminTaskMapper adminTaskMapper;
+    @Autowired
+    private UserTaskMapper userTaskMapper;
 
     //查询全部进度
     @Override
@@ -49,14 +55,48 @@ public class AdminTaskServiceImpl implements IAdminTaskService {
     }
 
     //添加任务
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int insertTask(Task task) {
-        return adminTaskMapper.insertTask(task);
+        int rows = adminTaskMapper.insertTask(task);
+        if(rows>0){
+            List<UserTask> ids = userTaskMapper.getAllStudentIds();
+
+            List<UserTask> userTaskRecords = new ArrayList<>();
+            for (UserTask student: ids){
+                UserTask record=new UserTask();
+                record.setStudentId(student.getStudentId());
+                record.setUserName(student.getUserName());
+
+                record.setTaskName(task.getTaskName());
+                record.setTaskId(task.getId().intValue());
+                record.setBeginTime(task.getBeginTime());
+                record.setEndTime(task.getEndTime());
+                record.setStatus(0);
+
+                userTaskRecords.add(record);
+            }
+            if (!userTaskRecords.isEmpty()){
+                try {
+                    userTaskMapper.insertUserTask(userTaskRecords);
+                }catch (Exception e){
+                    throw new RuntimeException("添加任务失败"+ e.getMessage());
+                }
+            }
+        }
+        return rows;
+
     }
     //删除任务
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int deleteTasks(Long[] ids) {
-        return adminTaskMapper.deleteTasks(ids);
+        try{
+            userTaskMapper.deleteUserTask(ids);
+            return adminTaskMapper.deleteTasks(ids);
+        }catch(Exception e){
+            throw new RuntimeException("删除任务失败"+ e.getMessage());
+        }
     }
 
 }

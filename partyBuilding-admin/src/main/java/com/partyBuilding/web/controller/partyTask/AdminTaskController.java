@@ -53,27 +53,37 @@ public class AdminTaskController {
     //新增任务列表
     @PostMapping("/inserttask")
     public AjaxResult insertTask(@RequestBody Task task){
-        int rows = adminTaskService.insertTask(task);
-        if (rows>0){
-            Map<String,Object> data=new HashMap<>();
-            data.put("taskId",task.getId());
-            data.put("taskName",task.getTaskName());
-            return AjaxResult.success(data);
+        try {
+            int rows = adminTaskService.insertTask(task);
+            if (rows > 0) {
+                Map<String, Object> data = new HashMap<>();
+                data.put("taskId", task.getId());
+                data.put("taskName", task.getTaskName());
+                return AjaxResult.success(data);
+            } else {
+                return AjaxResult.error();
+            }
+        } catch (Exception e) {
+            return AjaxResult.error(e.getMessage());
         }
-        return AjaxResult.error();
     }
 
     //删除任务列表
     @DeleteMapping("deletetask/{ids}")
     public AjaxResult deleteTasks(@PathVariable("ids") Long[] ids) {
-        int i = adminTaskService.deleteTasks(ids);
-        if(i>0){
-            String[] deletedIds = Arrays.stream(ids).map(String::valueOf).toArray(String[]::new);
-            Map<String,Object> data=new HashMap<>();
-            data.put("deletedIds",deletedIds);
-            return AjaxResult.success(data);
+        try {
+            int i = adminTaskService.deleteTasks(ids);
+            if (i > 0) {
+                String[] deletedIds = Arrays.stream(ids).map(String::valueOf).toArray(String[]::new);
+                Map<String, Object> data = new HashMap<>();
+                data.put("deletedIds", deletedIds);
+                return AjaxResult.success(data);
+            } else {
+                return AjaxResult.error();
+            }
+        } catch (Exception e) {
+            return AjaxResult.error(e.getMessage());
         }
-        return AjaxResult.error();
     }
 
     //查询全部进度
