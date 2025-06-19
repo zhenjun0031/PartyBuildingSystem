@@ -40,6 +40,12 @@ public interface UserTaskMapper {
     @Select("SELECT COUNT(*) FROM userTask WHERE studentId = #{studentId} AND status=0")
     Integer countUnfinishedByStudentId(String studentId);
 
+    /**
+     * 获取当前用户学号值
+     * 根据用户id查询用户学号
+     * @param userId
+     * @return studentId
+     */
     @Select("SELECT sys_user.student_id FROM sys_user WHERE sys_user.user_id = #{userId}")
     String getStudentId(Long userId);
 }

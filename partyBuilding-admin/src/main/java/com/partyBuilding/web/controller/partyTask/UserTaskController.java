@@ -41,13 +41,11 @@ public class UserTaskController {
 
 
     //统计月份的柱状图（用户）
-    //统计月份的柱状图（用户）
     @GetMapping("/monthlyCompletion")
     public AjaxResult monthlyCompletion() {
-        String studentId = SecurityUtils.getLoginUser().getUser().getStudentId();
+        String studentId = userTaskService.getStudentId(SecurityUtils.getLoginUser().getUser().getUserId());
         Map<String, Object> stats = statisticsService.getMonthlyTaskOrgUserCompletionNum(studentId);
         return AjaxResult.success(stats);
-        //SecurityUtils.getLoginUser().getUser().getStudentId();获取当前用户的学号
     }
 
     //查询任务列表
