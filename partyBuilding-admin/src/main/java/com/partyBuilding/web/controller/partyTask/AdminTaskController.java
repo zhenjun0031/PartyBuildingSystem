@@ -7,6 +7,7 @@ import com.partyBuilding.activity.service.IAdminTaskService;
 import com.partyBuilding.activity.service.IStatisticsService;
 import com.partyBuilding.common.core.domain.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -26,19 +27,14 @@ public class AdminTaskController {
 
     /**
      * 查询管理员下的未/已完成数
-     * @return 返回格式：
-     *  {
-     *      "code": 200,
-     *      "msg": "操作成功",
-     *      "data": {
-     *           "uncompleted": 未完成任务数,
-     *           "completed": 已完成任务数
-     *       }
-     *   }
      */
     @PostMapping("/task-completion")
     public AjaxResult getTaskStats() {
-        return AjaxResult.success(adminTaskService.getTaskStats());
+        int a = adminTaskService.getTaskStats(0);
+        int b = adminTaskService.getTaskStats(1);
+        Map<String, Integer> map = Map.of("unComplete", a, "complete", b);
+
+        return AjaxResult.success(map);
     }
 
 

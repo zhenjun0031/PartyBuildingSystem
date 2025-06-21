@@ -6,6 +6,7 @@ import com.partyBuilding.activity.domain.vo.PageVo;
 import com.partyBuilding.common.core.page.PageDomain;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IAdminTaskService {
     //  查询全部进度
@@ -23,7 +24,7 @@ public interface IAdminTaskService {
     /**
      * 获取管理员下的未/已完成数
      */
-    Map<String,Integer > getTaskStats();
+    int getTaskStats(int status);
 
 
 }

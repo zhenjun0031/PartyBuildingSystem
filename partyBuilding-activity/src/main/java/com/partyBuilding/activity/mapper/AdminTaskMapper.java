@@ -3,6 +3,7 @@ package com.partyBuilding.activity.mapper;
 import com.partyBuilding.activity.domain.Task;
 import com.partyBuilding.activity.domain.UserTask;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.Map;
@@ -23,7 +24,7 @@ public interface AdminTaskMapper {
     int deleteTask(Long id);
 
     int deleteTasks(Long[] ids);
-}
+
 
     /**
      * 统计管理员下的未/已完成数
@@ -32,11 +33,6 @@ public interface AdminTaskMapper {
      *     已完成数 completed
      * }
      */
-    @Select("SELECT" +
-            "SUM(CASE WHEN ut.status = 0 THEN 1 ELSE 0 END) as uncompleted, "+
-            "SUM(CASE WHEN ut.status = 1 THEN 1 ELSE 0 END) as completed " +
-            "FROM usertask ut "+
-            "JOIN task t ON ut.taskId=t.id "
-    )
-    Map<String, Integer > countTaskStats();
+    @Select("select count(studentId) from usertask where status = #{status}")
+    Integer countTaskStats(@Param("status") int status);
 }

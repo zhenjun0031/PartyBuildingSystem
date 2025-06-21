@@ -11,6 +11,8 @@ import com.partyBuilding.activity.mapper.UserTaskMapper;
 import com.partyBuilding.activity.service.IAdminTaskService;
 import com.partyBuilding.common.core.page.PageDomain;
 import io.swagger.models.auth.In;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,11 +108,7 @@ public class AdminTaskServiceImpl implements IAdminTaskService {
      *获取管理员下的未/已完成数
      */
     @Override
-    public Map<String,Integer > getTaskStats(){
-        Map<String,Integer> stats = adminTaskMapper.countTaskStats();
-        return Map.of(
-                "uncompleted", stats.getOrDefault("uncompleted", 0),
-                "completed", stats.getOrDefault("completed",1)
-        );
+    public int getTaskStats(int status) {
+        return adminTaskMapper.countTaskStats(status);
     }
 }
