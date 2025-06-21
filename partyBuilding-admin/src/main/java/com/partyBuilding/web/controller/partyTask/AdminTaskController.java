@@ -45,11 +45,11 @@ public class AdminTaskController {
             @RequestParam(name = "endTime", required = false) LocalDate endTime
     ){
         if (beginTime == null) {
-            beginTime = LocalDate.now().minusMonths(13);
+            beginTime = LocalDate.now().withDayOfMonth(1).minusMonths(13);
         }
 
         if (endTime == null) {
-            endTime = LocalDate.now().minusMonths(1);
+            endTime = LocalDate.now().withDayOfMonth(1);
         }
         Map<String,Object> taskStats = statisticsService.getMonthCompleted(beginTime, endTime);
         return AjaxResult.success(taskStats);

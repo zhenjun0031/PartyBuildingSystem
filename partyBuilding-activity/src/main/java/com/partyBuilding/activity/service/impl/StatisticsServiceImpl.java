@@ -6,6 +6,7 @@ import com.partyBuilding.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -64,14 +65,32 @@ public class StatisticsServiceImpl implements IStatisticsService {
     public Map<String,Object> getMonthCompleted(LocalDate begin, LocalDate end) {
         LocalDateTime beginTime = LocalDateTime.of(begin, LocalTime.MIN);
         LocalDateTime endTime = LocalDateTime.of(end, LocalTime.MIN);
-        List<Map<String, Object>> resultList =statisticsMapper.MonthCompleted(beginTime, endTime);
-        List<String> monthList = new ArrayList<>();
+
+        List<Map<String, Object>> dbResults =statisticsMapper.MonthCompleted(beginTime, endTime);
+
+        List<String> allMonths = DateUtils.generateRecentMonths(12);
+
+        List<String>   monthList= new ArrayList<>();
         List<Integer> completedList = new ArrayList<>();
         List<Integer> uncompletedList = new ArrayList<>();
-        for (Map<String, Object> row : resultList) {
-            monthList.add((String) row.get("month"));
-            completedList.add((Integer) row.get("submittedCount"));
-            uncompletedList.add((Integer) row.get("unSubmittedCount"));
+
+        for (String month:allMonths) {
+            boolean found = false;
+            for (Map<String, Object> row : dbResults) {
+                String dbMonth = (String) row.get("task_month");
+                if (month.equals(dbMonth)) {
+                    monthList.add(month);
+                    completedList.add(((BigDecimal) row.get("completedCount")).intValue());
+                    uncompletedList.add(((BigDecimal) row.get("uncompletedCount")).intValue());
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                monthList.add(month);
+                completedList.add(0);
+                uncompletedList.add(0);
+            }
         }
         Map<String,Object> map = new HashMap<>();
         map.put("month",monthList);
