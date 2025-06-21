@@ -8,7 +8,11 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 /**
@@ -187,5 +191,23 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
         LocalDateTime localDateTime = LocalDateTime.of(temporalAccessor, LocalTime.of(0, 0, 0));
         ZonedDateTime zdt = localDateTime.atZone(ZoneId.systemDefault());
         return Date.from(zdt.toInstant());
+    }
+
+    //  格式化
+    private static final DateTimeFormatter MONTH_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM");
+    /**
+     * 生成最近N个月的月份列表（格式：YYYY-MM）
+     * @param months 要生成的月份数量
+     * @return 月份列表，从最旧到最新排序
+     */
+    public static List<String> generateRecentMonths(int months) {
+        List<String> result = new ArrayList<>();
+        LocalDate now = LocalDate.now();
+
+        for (int i = months - 1; i >= 0; i--) {
+            result.add(now.minusMonths(i).format(MONTH_FORMATTER));
+        }
+
+        return result;
     }
 }

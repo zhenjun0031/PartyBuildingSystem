@@ -3,6 +3,10 @@ package com.partyBuilding.activity.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.partyBuilding.common.annotation.Excel;
 import com.partyBuilding.common.core.domain.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -10,6 +14,10 @@ import java.time.LocalDateTime;
 /**
  * 普通用户的任务管理表
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserTask extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -27,13 +35,13 @@ public class UserTask extends BaseEntity {
      * 姓名
      */
     @Excel(name = "姓名")
-    private String name;
+    private String userName;
 
     /**
      * 任务id
      */
     @Excel(name = "任务id")
-    private int taskId;
+    private Integer taskId;
 
     /**
      * 任务名称
@@ -61,7 +69,7 @@ public class UserTask extends BaseEntity {
      * 任务状态
      */
     @Excel(name = "任务状态")
-    private int status;
+    private Integer status;
 
     /**
      * 提交时间
@@ -78,92 +86,100 @@ public class UserTask extends BaseEntity {
     @Excel(name = "提交文件地址")
     private String file;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
-    }
-
-    public String getTaskName() {
-        return taskName;
-    }
-
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
-    public LocalDateTime getBeginTime() {
-        return beginTime;
-    }
-
-    public void setBeginTime(LocalDateTime beginTime) {
-        this.beginTime = beginTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getCommitTime() {
-        return commitTime;
-    }
-
-    public void setCommitTime(LocalDateTime commitTime) {
-        this.commitTime = commitTime;
-    }
-
-    public String getCommitFile() {
-        return file;
-    }
-
-    public void setCommitFile(String commitFile) {
-        this.file = commitFile;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public Long getStudentId() {
+//        return studentId;
+//    }
+//
+//    public void setStudentId(Long studentId) {
+//        this.studentId = studentId;
+//    }
+//
+//    public int getTaskId() {
+//        return taskId;
+//    }
+//
+//    public void setTaskId(int taskId) {
+//        this.taskId = taskId;
+//    }
+//
+//    public String getTaskName() {
+//        return taskName;
+//    }
+//
+//    public void setTaskName(String taskName) {
+//        this.taskName = taskName;
+//    }
+//
+//    public LocalDateTime getBeginTime() {
+//        return beginTime;
+//    }
+//
+//    public void setBeginTime(LocalDateTime beginTime) {
+//        this.beginTime = beginTime;
+//    }
+//
+//    public LocalDateTime getEndTime() {
+//        return endTime;
+//    }
+//
+//    public void setEndTime(LocalDateTime endTime) {
+//        this.endTime = endTime;
+//    }
+//
+//    public int getStatus() {
+//        return status;
+//    }
+//
+//    public String getUserName() {
+//        return userName;
+//    }
+//
+//    public void setUserName(String userName) {
+//        this.userName = userName;
+//    }
+//
+//    public void setFile(String file) {
+//        this.file = file;
+//    }
+//
+//    public String getFile() {
+//        return file;
+//    }
+//
+//    public void setStatus(int status) {
+//        this.status = status;
+//    }
+//
+//    public LocalDateTime getCommitTime() {
+//        return commitTime;
+//    }
+//
+//    public void setCommitTime(LocalDateTime commitTime) {
+//        this.commitTime = commitTime;
+//    }
+//
+//    public String getCommitFile() {
+//        return file;
+//    }
+//
+//    public void setCommitFile(String commitFile) {
+//        this.file = commitFile;
+//    }
 
     @Override
     public String toString() {
         return "UserTask{" +
                 "id=" + id +
                 ", studentId=" + studentId +
-                ", name='" + name + '\'' +
+                ", username='" + userName + '\'' +
                 ", taskId=" + taskId +
                 ", taskName='" + taskName + '\'' +
                 ", beginTime=" + beginTime +

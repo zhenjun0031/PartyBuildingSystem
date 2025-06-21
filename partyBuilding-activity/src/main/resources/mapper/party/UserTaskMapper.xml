@@ -4,4 +4,50 @@
 <mapper namespace="com.partyBuilding.activity.mapper.UserTaskMapper">
 
 
+    <update id="update">
+        UPDATE usertask
+        <set>
+            <if test="studentId != null">studentId = #{studentId},</if>
+            <if test="userName != null and userName != ''">userName = #{userName},</if>
+            <if test="taskId != null">taskId = #{taskId},</if>
+            <if test="taskName != null and taskName != ''">taskName = #{taskName},</if>
+            <if test="beginTime != null">beginTime = #{beginTime},</if>
+            <if test="endTime != null">endTime = #{endTime},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="commitTime != null">commitTime = #{commitTime},</if>
+            <if test="file != null and file != ''">file = #{file},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getById" resultType="com.partyBuilding.activity.domain.UserTask">
+        SELECT userName,studentId,taskName,taskId,status,file FROM usertask WHERE id = #{id}
+    </select>
+
+    <select id="getAllStudentIds" resultType="userTask">
+        select distinct studentId,userName FROM userTask
+    </select>
+
+    <insert id="insertUserTask" parameterType="list" >
+        insert into userTask(studentId,userName,taskId,taskName,beginTime,endTime,status)
+        values
+            <foreach collection="list" item="record" separator=",">
+                (
+                 #{record.studentId},
+                 #{record.userName},
+                 #{record.taskId},
+                 #{record.taskName},
+                 #{record.beginTime},
+                 #{record.endTime},
+                 #{record.status})
+            </foreach>
+    </insert>
+
+    <delete id="deleteUserTask" parameterType="long[]">
+            delete from userTask where taskId in
+            <foreach item="id" collection="array" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </delete>
+
 </mapper>

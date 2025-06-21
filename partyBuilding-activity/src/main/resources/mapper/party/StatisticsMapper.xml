@@ -4,4 +4,53 @@
 <mapper namespace="com.partyBuilding.activity.mapper.StatisticsMapper">
 
 
+
+    <select id="selectMonthlyTaskCompletion" resultType="java.util.Map">
+        SELECT
+            DATE_FORMAT(commitTime, '%Y-%m') AS month,
+            COUNT(*) AS completedCount
+        FROM
+            userTask
+        WHERE
+            studentId = #{studentId}
+          AND status = 1
+          AND commitTime IS NOT NULL
+        GROUP BY
+            DATE_FORMAT(commitTime, '%Y-%m')
+        ORDER BY
+            month
+    </select>
+
+    <select id="MonthCompleted" resultType="java.util.Map">
+        WITH RECURSIVE months AS (
+            SELECT DATE_FORMAT(#{startTime}, '%Y-%m') AS month
+            UNION ALL
+            SELECT DATE_FORMAT(
+            DATE_ADD(STR_TO_DATE(month, '%Y-%m'), INTERVAL 1 MONTH),
+            '%Y-%m'
+            )
+            FROM months
+                WHERE STR_TO_DATE(month, '%Y-%m') &lt;= DATE_FORMAT(#{endTime}, '%Y-%m')
+        )
+        (
+            SELECT
+                 s.id AS studentId,
+                 DATE_FORMAT(t.beginTime, '%Y-%m') AS month,
+            COUNT(ut.taskId) AS totalTasks,
+            SUM(CASE WHEN ut.status=1 THEN 1 ELSE 0 END) AS completedTasks
+            FROM student s
+            JOIN userTask ut ON s.id=ut.studentId
+            JOIN task t ON ut.taskId=t.id
+            WHERE t.beginTime  &gt;=  #{beginTime} AND t.beginTime &lt; #{endTime}
+            GROUP BY s.id, DATE_FORMAT(t.beginTime, '%Y-%m')
+        ) studentTasks
+        SELECT
+            m.month,
+            COALESCE(SUM(CASE WHEN totalTasks = completedTasks THEN 1 ELSE 0 END), 0) AS completedCount,
+            COALESCE(SUM(CASE WHEN totalTasks &gt; completedTasks THEN 1 ELSE 0 END), 0) AS uncompletedCount
+        FROM months m
+        LEFT JOIN studentTasks ON m.month=studentTasks.month
+        GROUP BY m.month
+        ORDER BY m.month
+    </select>
 </mapper>

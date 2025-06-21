@@ -1,7 +1,10 @@
 package com.partyBuilding.activity.service;
 
+import com.partyBuilding.activity.domain.UserTask;
+import com.partyBuilding.activity.domain.dto.UserTaskHandleDto;
 import com.partyBuilding.activity.domain.dto.UserTaskPageQueryDto;
 import com.partyBuilding.activity.domain.vo.PageVo;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface IUserTaskService {
 
@@ -11,4 +14,44 @@ public interface IUserTaskService {
      * @return
      */
     PageVo list(UserTaskPageQueryDto userTaskPageQueryDto);
+
+
+    /**
+     * 查询用户未完成数
+     */
+    Integer getUserUnfinished(String studentId);
+
+    /**
+     * 用户办理任务
+     * @param userTaskHandleDto
+     */
+    void handle(UserTaskHandleDto userTaskHandleDto);
+
+    /**
+     * 用户上传文件
+     * @param file
+     */
+    String userFileUpload(MultipartFile file,Long id);
+
+    /**
+     * 根据id获取用户任务
+     * @param id
+     * @return
+     */
+    UserTask getUserTaskById(Long id);
+
+
+    /**
+     * 修改用户任务
+     * @param userTaskHandleDto
+     */
+    void update(UserTaskHandleDto userTaskHandleDto);
+
+    /**
+     * 获得用户的学号
+     * @param userId
+     * @return
+     */
+    String getStudentId(Long userId);
+
 }

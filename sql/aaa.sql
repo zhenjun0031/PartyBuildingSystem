@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS task (
 CREATE TABLE IF NOT EXISTS userTask (
                                         id         int auto_increment
                                             primary key,
-                                        studentId  BIGINT UNSIGNED	    not null unique comment '学号',
+                                        studentId  varchar(20)	    not null comment '学号',
                                         userName   varchar(10) not null comment '姓名',
                                         taskId     int         not null comment '任务id',
                                         taskName   varchar(30) not null comment '任务名称',
@@ -18,5 +18,5 @@ CREATE TABLE IF NOT EXISTS userTask (
                                         endTime    datetime        not null comment '结束时间',
                                         status     int         not null comment '状态（0：未提交/1：已提交）',
                                         commitTime datetime        null comment '提交时间',
-                                        file       varchar(30) null comment '提交文件的地址'
+                                        file       varchar(100) null comment '提交文件的地址'
     );

@@ -4,4 +4,35 @@
 <mapper namespace="com.partyBuilding.activity.mapper.AdminTaskMapper">
 
 
+    <select id="selectProgress" resultType="com.partyBuilding.activity.domain.UserTask">
+        select id, studentId, userName from usertask
+    </select>
+    <select id="detail" resultType="com.partyBuilding.activity.domain.UserTask">
+        select t.* , u.status
+        from task t join usertask u
+        on t.id=u.taskId
+        where u.studentId=#{studentId}
+    </select>
+
+    <select id="selectTasks" resultType="task">
+        select id,taskName,beginTime,endTime from task
+    </select>
+
+    <insert id="insertTask" parameterType="task" useGeneratedKeys="true" keyProperty="id">
+        insert into task
+            (taskName,beginTime,endTime)
+        values
+            (#{taskName},#{beginTime},#{endTime})
+    </insert>
+
+    <delete id="deleteTask">
+        delete from task where id=#{id}
+    </delete>
+
+    <delete id="deleteTasks" >
+        delete from task where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>
