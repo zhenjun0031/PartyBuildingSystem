@@ -37,7 +37,7 @@ public class StatisticsServiceImpl implements IStatisticsService {
         Map<String,Integer> monthContMap=new  HashMap<>();
         for(Map<String, Object> item:dbResults){
             String month=(String) item.get("month");
-            Integer  count=(Integer) item.get("count");
+            Integer  count=Integer.valueOf(item.get("completedCount").toString());
             monthContMap.put(month,count);
         }
 
