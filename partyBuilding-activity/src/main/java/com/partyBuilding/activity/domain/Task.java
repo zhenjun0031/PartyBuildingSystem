@@ -1,5 +1,6 @@
 package com.partyBuilding.activity.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.partyBuilding.common.annotation.Excel;
 import com.partyBuilding.common.core.domain.BaseEntity;
 
@@ -9,6 +10,7 @@ import java.util.Date;
 /**
  * 管理员的任务管理
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)  // 忽略值为null的字段
 public class Task extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

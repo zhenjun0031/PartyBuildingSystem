@@ -82,8 +82,8 @@ public class AdminTaskController {
     }
 
     //删除任务列表
-    @DeleteMapping("deletetask/{ids}")
-    public AjaxResult deleteTasks(@PathVariable("ids") Long[] ids) {
+    @DeleteMapping("/deletetask")
+    public AjaxResult deleteTasks(@RequestBody Long[] ids) {
         try {
             int i = adminTaskService.deleteTasks(ids);
             if (i > 0) {
