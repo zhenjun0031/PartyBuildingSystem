@@ -3,27 +3,44 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.partyBuilding.activity.mapper.AdminTaskMapper">
 
+    <insert id="insertTask" parameterType="com.partyBuilding.activity.domain.Task" useGeneratedKeys="true" keyProperty="id">
+        insert into task
+                    (taskName,beginTime,endTime)
+                values
+                    (#{taskName},#{beginTime},#{endTime})
+    </insert>
+
 
     <select id="selectProgress" resultType="com.partyBuilding.activity.domain.UserTask">
-        select id, studentId, userName from usertask
+        SELECT
+            t.studentId,
+            ANY_VALUE(t.id) AS id,  -- 任意选择一个id，不影响结果
+            t.userName
+        FROM usertask t
+                 JOIN sys_user u ON u.student_id = t.studentId
+                 JOIN sys_user_role ur ON u.user_id = ur.user_id
+                 JOIN sys_role r ON ur.role_id = r.role_id
+        WHERE r.role_name = #{name}
+        GROUP BY t.studentId, t.userName  -- 按student_id和userName分组
     </select>
     <select id="detail" resultType="com.partyBuilding.activity.domain.UserTask">
         select t.* , u.status
         from task t join usertask u
         on t.id=u.taskId
         where u.studentId=#{studentId}
+        order by u.status
     </select>
 
-    <select id="selectTasks" resultType="task">
+    <select id="selectTasks" resultType="com.partyBuilding.activity.domain.Task">
         select id,taskName,beginTime,endTime from task
     </select>
 
-    <insert id="insertTask" parameterType="task" useGeneratedKeys="true" keyProperty="id">
-        insert into task
-            (taskName,beginTime,endTime)
-        values
-            (#{taskName},#{beginTime},#{endTime})
-    </insert>
+<!--    <insert id="insertTask" parameterType="task" useGeneratedKeys="true" keyProperty="id">-->
+<!--        insert into task-->
+<!--            (taskName,beginTime,endTime)-->
+<!--        values-->
+<!--            (#{taskName},#{beginTime},#{endTime})-->
+<!--    </insert>-->
 
     <delete id="deleteTask">
         delete from task where id=#{id}

@@ -34,21 +34,22 @@ public class StatisticsServiceImpl implements IStatisticsService {
         List<String> allMonths = DateUtils.generateRecentMonths(6);
 
         // 3. 将数据库结果转为月份->数量的Map（当dbResults是空列表时不执行循环，monthContMap是一个空Map{}）
-        Map<String,Integer> monthContMap=new  HashMap<>();
+        Map<String,Long> monthContMap=new  HashMap<>();
         for(Map<String, Object> item:dbResults){
             String month=(String) item.get("month");
-            Integer  count=(Integer) item.get("count");
+            Long  count=(Long) item.get("completedCount");
             monthContMap.put(month,count);
         }
 
         // 4. 填充完整月份数据（缺失的月份补0）
         List<Integer> completedCount = new ArrayList<>();
         for(String month:allMonths){
-            Integer tempcount=monthContMap.get(month);//当month不存在于monthContMap时返回null（map默认行为）
+            Long tempcount=monthContMap.get(month);//当month不存在于monthContMap时返回null（map默认行为）
+
             if(tempcount==null){
                 completedCount.add(Integer.valueOf(0));//当没有任务完成时，所有月份对应任务完成数填充0
             }else{
-                completedCount.add(tempcount);
+                completedCount.add(Math.toIntExact(tempcount));
             }
         }
 

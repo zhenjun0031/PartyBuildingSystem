@@ -8,7 +8,7 @@ import java.util.List;
 public class UserTaskConstants {
 
     //  用户任务列表每页显示数量
-    public static final Integer USER_TASK_PAGE_SIZE = 14;
+    public static final Integer USER_TASK_PAGE_SIZE = 10;
 
     //任务状态（已完成）
     public static final Integer STATUS_COMPLETED = 1;

@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper
 public interface AdminTaskMapper {
 
-    List<UserTask> selectProgress();
+    List<UserTask> selectProgress(String name);
 
     List<UserTask> detail(Long studentId);
 

@@ -29,7 +29,7 @@ public class UserTask extends BaseEntity {
      * 学生id（学号）
      */
     @Excel(name = "学号")
-    private Long studentId;
+    private String studentId;
 
     /**
      * 姓名

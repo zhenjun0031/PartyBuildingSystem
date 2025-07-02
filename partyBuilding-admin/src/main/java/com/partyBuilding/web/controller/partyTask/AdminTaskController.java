@@ -17,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/task")
-@PreAuthorize("@ss.hasRole('admin')")//权限控制
+@PreAuthorize("@ss.hasRole('teacher')")//权限控制
 public class AdminTaskController {
     @Autowired
     private IAdminTaskService adminTaskService;

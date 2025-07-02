@@ -34,7 +34,7 @@ public class AdminTaskServiceImpl implements IAdminTaskService {
     @Override
     public PageVo selectProgress(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<UserTask> taskList = adminTaskMapper.selectProgress();
+        List<UserTask> taskList = adminTaskMapper.selectProgress("学生");
         Page<UserTask> p = (Page<UserTask>) taskList;
         PageVo result = new PageVo(p.getTotal(), p.getResult());
         return result;

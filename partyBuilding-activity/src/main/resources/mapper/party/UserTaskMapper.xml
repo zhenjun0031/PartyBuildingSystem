@@ -24,8 +24,11 @@
         SELECT userName,studentId,taskName,taskId,status,file FROM usertask WHERE id = #{id}
     </select>
 
-    <select id="getAllStudentIds" resultType="userTask">
-        select distinct studentId,userName FROM userTask
+    <select id="getAllStudentIds" resultType="com.partyBuilding.activity.domain.UserTask">
+        select student_id as studentId,nick_name as userName FROM sys_user u
+                                                                      JOIN sys_user_role ur ON u.user_id = ur.user_id
+                                                                      JOIN sys_role r ON ur.role_id = r.role_id
+        WHERE r.role_name = '学生'
     </select>
 
     <insert id="insertUserTask" parameterType="list" >

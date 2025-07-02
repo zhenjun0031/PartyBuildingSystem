@@ -13,9 +13,11 @@ import com.partyBuilding.common.core.domain.model.LoginUser;
 import com.partyBuilding.common.enums.BusinessType;
 import com.partyBuilding.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +31,17 @@ public class UserTaskController {
 
     @Autowired
     private IStatisticsService statisticsService;
+
+    //返回学号和姓名
+    @GetMapping("/getStudentId")
+    public AjaxResult getStudentId(){
+        Map<String, String> stats = new HashMap<>();
+        stats.put("studentId", userTaskService.getStudentId(SecurityUtils.getLoginUser().getUser().getUserId()));
+        stats.put("name", SecurityUtils.getLoginUser().getUser().getNickName());
+        return AjaxResult.success(stats);
+    }
+
+
 
     //查询用户未完成数
     @GetMapping("/getUserUnfinished")
@@ -48,14 +61,14 @@ public class UserTaskController {
         return AjaxResult.success(stats);
     }
 
-    //查询任务列表
 
     /**
      * 查询用户任务列表
      * @return
      */
     @GetMapping("/list")
-    public AjaxResult list(@RequestBody UserTaskPageQueryDto userTaskPageQueryDto) {
+    public AjaxResult list(int page) {
+        UserTaskPageQueryDto userTaskPageQueryDto = new UserTaskPageQueryDto(page, userTaskService.getStudentId(SecurityUtils.getLoginUser().getUser().getUserId()));
         return new AjaxResult(HttpStatus.SUCCESS,
                 "success",
                 userTaskService.list(userTaskPageQueryDto));
@@ -71,6 +84,7 @@ public class UserTaskController {
     @PostMapping("/handle")
     @Log(title = "用户办理任务", businessType = BusinessType.UPDATE)
     public AjaxResult handleTask(@RequestBody UserTaskHandleDto userTaskHandleDto) {
+        userTaskHandleDto.setStudentId(userTaskService.getStudentId(SecurityUtils.getLoginUser().getUser().getUserId()));
         userTaskService.handle(userTaskHandleDto);
         return AjaxResult.success();
     }
@@ -101,6 +115,7 @@ public class UserTaskController {
     @Log(title = "用户修改任务", businessType = BusinessType.UPDATE)
     @PutMapping("/update")
     public AjaxResult update(@RequestBody UserTaskHandleDto userTaskHandleDto) {
+        userTaskHandleDto.setStudentId(userTaskService.getStudentId(SecurityUtils.getLoginUser().getUser().getUserId()));
         userTaskService.update(userTaskHandleDto);
         return AjaxResult.success();
     }
