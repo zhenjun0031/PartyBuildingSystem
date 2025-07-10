@@ -3,8 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.partyBuilding.activity.mapper.StatisticsMapper">
 
-
-
     <select id="selectMonthlyTaskCompletion" resultType="java.util.Map">
         SELECT
             DATE_FORMAT(commitTime, '%Y-%m') AS month,
@@ -22,28 +20,25 @@
     </select>
 
     <select id="MonthCompleted" resultType="java.util.Map">
-        WITH selected_tasks AS (
-            SELECT id AS task_id
-            FROM task
-            WHERE beginTime  &gt;=  #{arg0} AND beginTime &lt; #{arg1}
-        ),
-             student_monthly_status AS (
-                 SELECT
-                     ut.studentId,
-                     DATE_FORMAT(ut.beginTime, '%Y-%m') AS task_month,
-                     CASE
-                         WHEN COUNT(ut.status) = SUM(CASE WHEN ut.status = 1 THEN 1 ELSE 0 END)
-                             THEN 'completed'
-                         ELSE 'uncompleted'
-                         END AS status
-                 FROM userTask ut
-                 GROUP BY ut.studentId, DATE_FORMAT(ut.beginTime, '%Y-%m')
-             )
         SELECT
-            task_month,
-            SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completedCount,
-            SUM(CASE WHEN status = 'uncompleted' THEN 1 ELSE 0 END) AS uncompletedCount
-        FROM student_monthly_status
+        task_month,
+        SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completedCount,
+        SUM(CASE WHEN status = 'uncompleted' THEN 1 ELSE 0 END) AS uncompletedCount
+        FROM (
+        SELECT
+        ut.studentId,
+        DATE_FORMAT(ut.beginTime, '%Y-%m') AS task_month,
+        CASE
+        WHEN COUNT(ut.status) = SUM(CASE WHEN ut.status = 1 THEN 1 ELSE 0 END)
+        THEN 'completed'
+        ELSE 'uncompleted'
+        END AS status
+        FROM userTask ut
+        WHERE ut.taskId IN (
+        SELECT id FROM task WHERE beginTime >= #{arg0} AND beginTime &lt; #{arg1}
+        )
+        GROUP BY ut.studentId, DATE_FORMAT(ut.beginTime, '%Y-%m')
+        ) AS student_monthly_status
         GROUP BY task_month
         ORDER BY task_month
     </select>

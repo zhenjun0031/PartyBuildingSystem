@@ -17,7 +17,7 @@ public interface UserTaskMapper {
      * @param StudentId
      * @return
      */
-    @Select("select id,taskName,usertask.beginTime,usertask.endTime,commitTime,status from usertask where studentId=#{studentId}")
+    @Select("select id,taskName,userTask.beginTime,userTask.endTime,commitTime,status from userTask where studentId=#{studentId}")
     Page<UserTask> list(String StudentId);
 
     /**

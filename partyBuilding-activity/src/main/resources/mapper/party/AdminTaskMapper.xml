@@ -16,7 +16,7 @@
             t.studentId,
             ANY_VALUE(t.id) AS id,  -- 任意选择一个id，不影响结果
             t.userName
-        FROM usertask t
+        FROM userTask t
                  JOIN sys_user u ON u.student_id = t.studentId
                  JOIN sys_user_role ur ON u.user_id = ur.user_id
                  JOIN sys_role r ON ur.role_id = r.role_id
@@ -25,7 +25,7 @@
     </select>
     <select id="detail" resultType="com.partyBuilding.activity.domain.UserTask">
         select t.* , u.status
-        from task t join usertask u
+        from task t join userTask u
         on t.id=u.taskId
         where u.studentId=#{studentId}
         order by u.status

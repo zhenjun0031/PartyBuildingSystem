@@ -33,6 +33,6 @@ public interface AdminTaskMapper {
      *     已完成数 completed
      * }
      */
-    @Select("select count(studentId) from usertask where status = #{status}")
+    @Select("select count(studentId) from userTask where status = #{status}")
     Integer countTaskStats(@Param("status") int status);
 }

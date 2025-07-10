@@ -5,7 +5,7 @@
 
 
     <update id="update">
-        UPDATE usertask
+        UPDATE userTask
         <set>
             <if test="studentId != null">studentId = #{studentId},</if>
             <if test="userName != null and userName != ''">userName = #{userName},</if>
@@ -21,7 +21,7 @@
     </update>
 
     <select id="getById" resultType="com.partyBuilding.activity.domain.UserTask">
-        SELECT userName,studentId,taskName,taskId,status,file FROM usertask WHERE id = #{id}
+        SELECT userName,studentId,taskName,taskId,status,file FROM userTask WHERE id = #{id}
     </select>
 
     <select id="getAllStudentIds" resultType="com.partyBuilding.activity.domain.UserTask">
