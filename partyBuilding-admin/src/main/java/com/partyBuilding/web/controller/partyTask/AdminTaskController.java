@@ -1,11 +1,15 @@
 package com.partyBuilding.web.controller.partyTask;
 
+import com.github.pagehelper.Page;
 import com.partyBuilding.activity.domain.Task;
+import com.partyBuilding.activity.domain.dto.AdminTaskPageQureyDTO;
 import com.partyBuilding.activity.domain.vo.PageResultVo;
 import com.partyBuilding.activity.domain.vo.PageVo;
 import com.partyBuilding.activity.service.IAdminTaskService;
 import com.partyBuilding.activity.service.IStatisticsService;
 import com.partyBuilding.common.core.domain.AjaxResult;
+import com.partyBuilding.common.utils.PageUtils;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -113,4 +118,48 @@ public class AdminTaskController {
                                 @PathVariable Long studentId){
         PageVo pageVo = adminTaskService.detail(pageNum,  pageSize,  studentId );
         return AjaxResult.success(pageVo);    }
+
+//    //按时间查询（年月查询）
+//    @GetMapping("/selectYearandMonth")
+//    @ApiOperation("按时间查询（年月查询）")
+//    public AjaxResult selectYearandMonth(@RequestParam(defaultValue = "1") Integer pageNum,
+//                                         @RequestParam(defaultValue = "10") Integer pageSize,
+//                                         @RequestParam(required = true) Integer year,
+//                                         @RequestParam(required = false) Integer month){
+//
+//        if (month == null) {
+//            PageUtils.startPage(pageNum, pageSize);
+//            Page<Task> page = adminTaskService.selectYear(year);
+//
+//            return AjaxResult.success(pageResultVo);
+//
+//        }else{
+//            PageResultVo pageResultVo = adminTaskService.selectYearAndMonth(pageNum, pageSize, year, month);
+//
+//            return AjaxResult.success(pageResultVo);
+//        }
+//
+//    }
+//按时间查询（年月查询）
+@GetMapping("/selectYearandMonth")
+@ApiOperation("按时间查询（年月查询）")
+public AjaxResult selectYearandMonth(AdminTaskPageQureyDTO adminTaskPageQureyDTO){
+
+        return AjaxResult.success(adminTaskService.selectYearAndMonth(adminTaskPageQureyDTO));
+
+}
+
+@GetMapping("/selectName/{name}")
+@ApiOperation("按人名查询")
+public AjaxResult selectName(
+        @RequestParam Integer pageNum,
+        @RequestParam Integer pageSize,
+        @PathVariable String name){
+        return AjaxResult.success(adminTaskService.selectName(pageNum,pageSize,name));
+}
+
+
+
+
+
 }

@@ -4,12 +4,11 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.partyBuilding.activity.domain.Task;
 import com.partyBuilding.activity.domain.UserTask;
-import com.partyBuilding.activity.domain.vo.PageResultVo;
-import com.partyBuilding.activity.domain.vo.PageVo;
+import com.partyBuilding.activity.domain.dto.AdminTaskPageQureyDTO;
+import com.partyBuilding.activity.domain.vo.*;
 import com.partyBuilding.activity.mapper.AdminTaskMapper;
 import com.partyBuilding.activity.mapper.UserTaskMapper;
 import com.partyBuilding.activity.service.IAdminTaskService;
-import com.partyBuilding.common.core.page.PageDomain;
 import io.swagger.models.auth.In;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.Map;
 
 @Service
 public class AdminTaskServiceImpl implements IAdminTaskService {
@@ -110,5 +107,35 @@ public class AdminTaskServiceImpl implements IAdminTaskService {
     @Override
     public int getTaskStats(int status) {
         return adminTaskMapper.countTaskStats(status);
+    }
+
+    /**
+     * 按时间查询（年月查询）
+     */
+    @Override
+    public PageResultVo selectYearAndMonth(AdminTaskPageQureyDTO adminTaskPageQureyDTO) {
+        //开启分页查询
+        PageHelper.startPage(adminTaskPageQureyDTO.getPage(), adminTaskPageQureyDTO.getPageSize());
+        Page<Task> page = adminTaskMapper.selectByYearAndMonth(adminTaskPageQureyDTO);
+
+        return new PageResultVo(page.getTotal(), page.getResult());
+    }
+
+    /**
+     * 按姓名查询
+     */
+    @Override
+    public selectByNamePageResultVo selectName(Integer pageNum, Integer pageSize, String name) {
+
+        //开启分页查询
+        PageHelper.startPage(pageNum, pageSize);
+        Page<UserTaskVo> page = adminTaskMapper.selectByName(name);
+
+        String studentId=adminTaskMapper.selectStudentIDByName(name);
+
+        Integer taskNumber=adminTaskMapper.getTaskNumber(name);
+        Integer finishTaskNumber=adminTaskMapper.getFinishTaskNumber(name);
+
+        return new selectByNamePageResultVo(studentId,name,page.getTotal(),taskNumber,finishTaskNumber, page.getResult());
     }
 }

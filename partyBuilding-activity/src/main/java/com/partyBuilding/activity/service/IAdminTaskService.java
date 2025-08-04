@@ -1,12 +1,11 @@
 package com.partyBuilding.activity.service;
 
 import com.partyBuilding.activity.domain.Task;
+import com.partyBuilding.activity.domain.UserTask;
+import com.partyBuilding.activity.domain.dto.AdminTaskPageQureyDTO;
 import com.partyBuilding.activity.domain.vo.PageResultVo;
 import com.partyBuilding.activity.domain.vo.PageVo;
-import com.partyBuilding.common.core.page.PageDomain;
-
-import java.util.List;
-import java.util.Map;
+import com.partyBuilding.activity.domain.vo.selectByNamePageResultVo;
 
 public interface IAdminTaskService {
     //  查询全部进度
@@ -27,4 +26,13 @@ public interface IAdminTaskService {
     int getTaskStats(int status);
 
 
+    /**
+     * 按年（月）查询任务列表
+     */
+    PageResultVo selectYearAndMonth(AdminTaskPageQureyDTO adminTaskPageQureyDTO);
+
+    /**
+     * 按人名查询任务列表
+     */
+    selectByNamePageResultVo selectName(Integer pageNum, Integer pageSize, String name);
 }

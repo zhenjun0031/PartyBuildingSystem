@@ -52,4 +52,23 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="selectByYearAndMonth" resultType="com.partyBuilding.activity.domain.Task">
+        select taskName,beginTime,endTime from usertask
+        where YEAR(beginTime)=#{year}
+        <if test="month!=null and month !=''">
+            and MONTH(beginTime)=#{month}
+        </if>
+        order by beginTime asc
+    </select>
+
+
+    <select id="selectByName" resultType="com.partyBuilding.activity.domain.vo.UserTaskVo">
+        select taskId,taskName,beginTime,endTime,status,commitTime from usertask
+        where userName = #{name}
+        order by beginTime asc
+    </select>
+
+
+
 </mapper>
