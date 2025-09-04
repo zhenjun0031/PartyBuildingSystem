@@ -114,8 +114,10 @@ public class AdminTaskServiceImpl implements IAdminTaskService {
      */
     @Override
     public PageResultVo selectYearAndMonth(AdminTaskPageQureyDTO adminTaskPageQureyDTO) {
+        int pageNum = adminTaskPageQureyDTO.getPage() != null ? adminTaskPageQureyDTO.getPage().intValue() : 1; // 如果page为null，默认第一页
+        int pageSize = adminTaskPageQureyDTO.getPageSize() != null ? adminTaskPageQureyDTO.getPageSize().intValue() : 10; // 如果size为null，默认每页10条
         //开启分页查询
-        PageHelper.startPage(adminTaskPageQureyDTO.getPage(), adminTaskPageQureyDTO.getPageSize());
+        PageHelper.startPage(pageNum, pageSize);
         Page<Task> page = adminTaskMapper.selectByYearAndMonth(adminTaskPageQureyDTO);
 
         return new PageResultVo(page.getTotal(), page.getResult());
@@ -126,6 +128,7 @@ public class AdminTaskServiceImpl implements IAdminTaskService {
      */
     @Override
     public selectByNamePageResultVo selectName(Integer pageNum, Integer pageSize, String name) {
+
 
         //开启分页查询
         PageHelper.startPage(pageNum, pageSize);

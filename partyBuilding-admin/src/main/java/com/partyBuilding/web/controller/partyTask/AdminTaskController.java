@@ -152,8 +152,8 @@ public AjaxResult selectYearandMonth(AdminTaskPageQureyDTO adminTaskPageQureyDTO
 @GetMapping("/selectName/{name}")
 @ApiOperation("按人名查询")
 public AjaxResult selectName(
-        @RequestParam Integer pageNum,
-        @RequestParam Integer pageSize,
+        @RequestParam(defaultValue = "1") Integer pageNum,
+        @RequestParam(defaultValue = "10") Integer pageSize,
         @PathVariable String name){
         return AjaxResult.success(adminTaskService.selectName(pageNum,pageSize,name));
 }

@@ -25,10 +25,12 @@ public class Task extends BaseEntity {
 
     /** 开始时间 */
     @Excel(name="开始时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime beginTime;
 
     /** 结束时间 */
     @Excel(name="结束时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime endTime;
 
 
