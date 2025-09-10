@@ -1,7 +1,6 @@
 package com.partyBuilding.activity.service;
 
 import com.partyBuilding.activity.domain.dto.TaskQueryDTO;
-import com.partyBuilding.activity.domain.vo.TaskChartVo;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -18,5 +17,5 @@ public interface IStatisticsService {
     Map<String,Object> getMonthCompleted(LocalDate begin, LocalDate end);
 
     //获取任务图表数据
-    TaskChartVo getTaskChartData(TaskQueryDTO queryDTO);
+    Map<String ,Long> getTaskChartData(TaskQueryDTO queryDTO);
 }

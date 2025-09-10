@@ -1,7 +1,6 @@
 package com.partyBuilding.activity.service.impl;
 
 import com.partyBuilding.activity.domain.dto.TaskQueryDTO;
-import com.partyBuilding.activity.domain.vo.TaskChartVo;
 import com.partyBuilding.activity.mapper.StatisticsMapper;
 import com.partyBuilding.activity.service.IStatisticsService;
 import com.partyBuilding.common.utils.DateUtils;
@@ -23,7 +22,7 @@ public class StatisticsServiceImpl implements IStatisticsService {
     private StatisticsMapper statisticsMapper;
 
     @Override
-    public TaskChartVo getTaskChartData(TaskQueryDTO queryDTO){
+    public Map<String ,Long> getTaskChartData(TaskQueryDTO queryDTO){
         Integer year = queryDTO.getYear();
         Integer month = queryDTO.getMonth();
 
@@ -32,12 +31,12 @@ public class StatisticsServiceImpl implements IStatisticsService {
             year = LocalDate.now().getYear();
         } else if(year != null && month == null ){
             // 只填充年
+            int startMonth = 1;
+            int endMonth = 12;
         }
 
-        Map<String ,Integer> pieChartData = statisticsMapper.selectTaskStatusCountByYearMonth(year,month);
-        TaskChartVo taskChartVo = new TaskChartVo();
-        taskChartVo.setPieCharData(pieChartData);
-        return taskChartVo;
+        Map<String ,Long> pieChartData = statisticsMapper.selectTaskStatusCountByYearMonth(year,month);
+        return pieChartData;
     }
 
     /**

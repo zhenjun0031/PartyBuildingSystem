@@ -5,11 +5,13 @@ import com.partyBuilding.activity.domain.Task;
 import com.partyBuilding.activity.domain.UserTask;
 import com.partyBuilding.activity.domain.dto.AdminTaskPageQureyDTO;
 import com.partyBuilding.activity.domain.vo.UserTaskVo;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface AdminTaskMapper {
@@ -19,6 +21,8 @@ public interface AdminTaskMapper {
     List<UserTask> detail(Long studentId);
 
     List<Task>  selectTasks();
+
+    Map<String,Long> selectAdminTaskStatusCountByYearMonth(@Param("year") Integer year, @Param("month") Integer month);
 
     int insertTask(Task task);
 

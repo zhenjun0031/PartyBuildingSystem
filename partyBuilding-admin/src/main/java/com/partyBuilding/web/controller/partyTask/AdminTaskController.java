@@ -3,6 +3,7 @@ package com.partyBuilding.web.controller.partyTask;
 import com.github.pagehelper.Page;
 import com.partyBuilding.activity.domain.Task;
 import com.partyBuilding.activity.domain.dto.AdminTaskPageQureyDTO;
+import com.partyBuilding.activity.domain.dto.TaskQueryDTO;
 import com.partyBuilding.activity.domain.vo.PageResultVo;
 import com.partyBuilding.activity.domain.vo.PageVo;
 import com.partyBuilding.activity.service.IAdminTaskService;
@@ -30,6 +31,12 @@ public class AdminTaskController {
     @Autowired
     private IStatisticsService statisticsService;
 
+
+    @PostMapping("/adminTaskChartData")
+    public AjaxResult getAdminTaskChartData(@RequestBody TaskQueryDTO queryDTO){
+        Map<String,Long> taskChartVo = adminTaskService.getAdminTaskChartData(queryDTO);
+        return AjaxResult.success(taskChartVo);
+    }
 
     //查询管理员下的未/已完成数
 

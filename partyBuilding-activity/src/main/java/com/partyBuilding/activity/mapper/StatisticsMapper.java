@@ -14,7 +14,7 @@ public interface StatisticsMapper {
 
     List<Map<String, Object>> MonthCompleted(LocalDateTime begin, LocalDateTime end);
 
-    Map<String, Integer> selectTaskStatusCountByYearMonth(@Param("year")Integer year, @Param("month")Integer month);
+    Map<String,Long > selectTaskStatusCountByYearMonth(@Param("year")Integer year, @Param("month")Integer month);
 
 
 }

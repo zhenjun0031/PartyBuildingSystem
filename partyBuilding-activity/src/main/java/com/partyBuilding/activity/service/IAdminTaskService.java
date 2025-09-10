@@ -3,9 +3,12 @@ package com.partyBuilding.activity.service;
 import com.partyBuilding.activity.domain.Task;
 import com.partyBuilding.activity.domain.UserTask;
 import com.partyBuilding.activity.domain.dto.AdminTaskPageQureyDTO;
+import com.partyBuilding.activity.domain.dto.TaskQueryDTO;
 import com.partyBuilding.activity.domain.vo.PageResultVo;
 import com.partyBuilding.activity.domain.vo.PageVo;
 import com.partyBuilding.activity.domain.vo.selectByNamePageResultVo;
+
+import java.util.Map;
 
 public interface IAdminTaskService {
     //  查询全部进度
@@ -19,6 +22,9 @@ public interface IAdminTaskService {
     int insertTask(Task task);
     //删除任务
     int deleteTasks(Long[] ids);
+
+    //获取管理员的任务图表数据
+    Map<String ,Long> getAdminTaskChartData(TaskQueryDTO queryDTO);
 
     /**
      * 获取管理员下的未/已完成数

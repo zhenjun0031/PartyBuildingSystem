@@ -5,8 +5,10 @@ import com.github.pagehelper.PageHelper;
 import com.partyBuilding.activity.domain.Task;
 import com.partyBuilding.activity.domain.UserTask;
 import com.partyBuilding.activity.domain.dto.AdminTaskPageQureyDTO;
+import com.partyBuilding.activity.domain.dto.TaskQueryDTO;
 import com.partyBuilding.activity.domain.vo.*;
 import com.partyBuilding.activity.mapper.AdminTaskMapper;
+import com.partyBuilding.activity.mapper.StatisticsMapper;
 import com.partyBuilding.activity.mapper.UserTaskMapper;
 import com.partyBuilding.activity.service.IAdminTaskService;
 import io.swagger.models.auth.In;
@@ -16,8 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AdminTaskServiceImpl implements IAdminTaskService {
@@ -26,6 +30,10 @@ public class AdminTaskServiceImpl implements IAdminTaskService {
     private AdminTaskMapper adminTaskMapper;
     @Autowired
     private UserTaskMapper userTaskMapper;
+    @Autowired
+    private StatisticsServiceImpl statisticsServiceImpl;
+    @Autowired
+    private StatisticsMapper statisticsMapper;
 
     //查询全部进度
     @Override
@@ -140,5 +148,23 @@ public class AdminTaskServiceImpl implements IAdminTaskService {
         Integer finishTaskNumber=adminTaskMapper.getFinishTaskNumber(name);
 
         return new selectByNamePageResultVo(studentId,name,page.getTotal(),taskNumber,finishTaskNumber, page.getResult());
+    }
+
+    @Override
+    public Map<String ,Long> getAdminTaskChartData(TaskQueryDTO queryDTO){
+        Integer year = queryDTO.getYear();
+        Integer month = queryDTO.getMonth();
+
+        if(year==null || month==null){
+            // 未填充年月，查询本年全部数据
+            year = LocalDate.now().getYear();
+        } else if(year != null && month == null ){
+            // 只填充年
+            int startMonth = 1;
+            int endMonth = 12;
+        }
+
+        Map<String ,Long> pieChartData = adminTaskMapper.selectAdminTaskStatusCountByYearMonth(year,month);
+        return pieChartData;
     }
 }

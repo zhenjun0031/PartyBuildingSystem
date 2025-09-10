@@ -45,8 +45,8 @@
 
     <select id="selectTaskStatusCountByYearMonth" resultType="java.util.Map">
         SELECT
-        SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) AS completedCount,
-        SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) AS uncompletedCount
+        COUNT(CASE WHEN status = 1 THEN 1 ELSE NULL END) AS completedCount,
+        COUNT(CASE WHEN status = 0 THEN 1 ELSE NULL END) AS uncompletedCount
         FROM userTask
         <where>
             <if test="year != null">

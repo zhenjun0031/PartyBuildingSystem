@@ -69,6 +69,18 @@
         order by beginTime asc
     </select>
 
-
-
+    <select id="selectAdminTaskStatusCountByYearMonth" resultType="java.util.Map">
+        SELECT
+        COUNT(CASE WHEN status = 1 THEN 1 ELSE NULL END) AS completedCount,
+        COUNT(CASE WHEN status = 0 THEN 1 ELSE NULL END) AS uncompletedCount
+        FROM task
+        <where>
+            <if test="year != null">
+                YEAR(beginTime) = #{year}
+            </if>
+            <if test="month != null">
+                AND MONTH(beginTime) = #{month}
+            </if>
+        </where>
+    </select>
 </mapper>
