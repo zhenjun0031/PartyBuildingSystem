@@ -42,4 +42,19 @@
         GROUP BY task_month
         ORDER BY task_month
     </select>
+
+    <select id="selectTaskStatusCountByYearMonth" resultType="java.util.Map">
+        SELECT
+        SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) AS completedCount,
+        SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) AS uncompletedCount
+        FROM userTask
+        <where>
+            <if test="year != null">
+                YEAR(beginTime) = #{year}
+            </if>
+            <if test="month != null">
+                AND MONTH(beginTime) = #{month}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -1,5 +1,7 @@
 package com.partyBuilding.activity.service.impl;
 
+import com.partyBuilding.activity.domain.dto.TaskQueryDTO;
+import com.partyBuilding.activity.domain.vo.TaskChartVo;
 import com.partyBuilding.activity.mapper.StatisticsMapper;
 import com.partyBuilding.activity.service.IStatisticsService;
 import com.partyBuilding.common.utils.DateUtils;
@@ -19,6 +21,24 @@ import java.util.Map;
 public class StatisticsServiceImpl implements IStatisticsService {
     @Autowired
     private StatisticsMapper statisticsMapper;
+
+    @Override
+    public TaskChartVo getTaskChartData(TaskQueryDTO queryDTO){
+        Integer year = queryDTO.getYear();
+        Integer month = queryDTO.getMonth();
+
+        if(year==null || month==null){
+            // 未填充年月，查询本年全部数据
+            year = LocalDate.now().getYear();
+        } else if(year != null && month == null ){
+            // 只填充年
+        }
+
+        Map<String ,Integer> pieChartData = statisticsMapper.selectTaskStatusCountByYearMonth(year,month);
+        TaskChartVo taskChartVo = new TaskChartVo();
+        taskChartVo.setPieCharData(pieChartData);
+        return taskChartVo;
+    }
 
     /**
      * 获取当前用户每月的任务完成情况

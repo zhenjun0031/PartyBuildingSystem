@@ -26,14 +26,7 @@ public interface AdminTaskMapper {
 
     int deleteTasks(Long[] ids);
 
-
-    /**
-     * 统计管理员下的未/已完成数
-     * @return {
-     *     未完成数 uncompleted
-     *     已完成数 completed
-     * }
-     */
+    //统计管理员下的未/已完成数
     @Select("select count(studentId) from userTask where status = #{status}")
     Integer countTaskStats(@Param("status") int status);
 

@@ -30,9 +30,9 @@ public class AdminTaskController {
     @Autowired
     private IStatisticsService statisticsService;
 
-    /**
-     * 查询管理员下的未/已完成数
-     */
+
+    //查询管理员下的未/已完成数
+
     @PostMapping("/task-completion")
     public AjaxResult getTaskStats() {
         int a = adminTaskService.getTaskStats(0);
